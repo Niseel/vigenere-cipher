@@ -50,7 +50,7 @@ const encryptVigenereCipher = (str, key) => {
       );
     } else {
       var turnTime = charCode;
-      while (turnTime > 126) turnTime = turnTime - 94;
+      while (turnTime > 126) turnTime = turnTime - 95;
       // console.log(
       //   "lon qua",
       //   turnTime,
@@ -60,13 +60,13 @@ const encryptVigenereCipher = (str, key) => {
       arrResultCode.push(turnTime);
     }
 
-    // console.log(
-    //   //mô tả cộng mã ascii
-    //   `${plaintext[i]} (${plaintext[i].charCodeAt(0)})`,
-    //   `${keystream[i]} (${keystream[i].charCodeAt(0)})`,
-    //   `Value: ${plaintext[i].charCodeAt(0) + keystream[i].charCodeAt(0)}`,
-    //   `Turn: ${plaintext[i].charCodeAt(0) + keystream[i].charCodeAt(0) - 94} `
-    // );
+    console.log(
+      //mô tả cộng mã ascii
+      `${plaintext[i]} (${plaintext[i].charCodeAt(0)})`,
+      `${keystream[i]} (${keystream[i].charCodeAt(0)})`,
+      `Value: ${plaintext[i].charCodeAt(0) + keystream[i].charCodeAt(0)}`,
+      `Turn: ${plaintext[i].charCodeAt(0) + keystream[i].charCodeAt(0) - 95} `
+    );
   }
 
   console.log(plaintextCode);
@@ -77,7 +77,52 @@ const encryptVigenereCipher = (str, key) => {
   return result;
 };
 
-const decryptVigenereCipher = (str, key) => {};
+const decryptVigenereCipher = (str, key) => {
+  let ciphertext = str.split("");
+  let keystream = key.split("");
+  let tempkey = [...keystream];
+  while (1) {
+    if (keystream.length <= ciphertext.length) {
+      keystream.push(...tempkey);
+    } else break;
+  }
+  keystream.splice(ciphertext.length);
+
+  let arrResult = [];
+  for (let i = 0; i < ciphertext.length; i++) {
+    // console.log(
+    //   ciphertext[i].charCodeAt(0),
+    //   " - ",
+    //   keystream[i].charCodeAt(0),
+    //   ":  ",
+    //   `${ciphertext[i].charCodeAt(0) - keystream[i].charCodeAt(0)}`
+    // );
+    let curr = ciphertext[i].charCodeAt(0) - keystream[i].charCodeAt(0);
+    let step = 1;
+    while (1) {
+      if (curr >= 32 && curr <= 126) {
+        step = 1;
+        break;
+      } else {
+        curr =
+          ciphertext[i].charCodeAt(0) + 95 * step - keystream[i].charCodeAt(0);
+        step++;
+      }
+    }
+
+    //console.log(curr);
+    let test = "";
+    test += getChar(curr).toString();
+    console.log(test);
+    // let currChar = ciphertext[i].charCodeAt(0) - keystream[i].charCodeAt(0);
+    // if (currChar < 32 || currChar > 126) {
+    //   currChar = ciphertext[i].charCodeAt(0) * 2 - keystream[i].charCodeAt(0);
+    //   console.log(currChar);
+    // }
+  }
+  // console.log(ciphertext, ciphertext.length);
+  // console.log(keystream, keystream.length);
+};
 const vigenereCipherDetector = (str) => {};
 
 // let str = readlineSync.question("> Enter string you want to encrypt? ");
@@ -85,5 +130,7 @@ const vigenereCipherDetector = (str) => {};
 
 console.log(
   ">String after encrypt: ",
-  encryptVigenereCipher("congthanh410a", "banana")
+  encryptVigenereCipher("Truong dai hoc Sai Gon (SGU)", "sguUGS")
 );
+
+console.log(decryptVigenereCipher(`hz,eV[4lw_g\\$k6II]4O&dg{gOk~`, "sguUGS"));
