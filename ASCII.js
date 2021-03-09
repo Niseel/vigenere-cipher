@@ -7,7 +7,7 @@
 // console.log(text)
 //{ key: 32, value: " " }
 let ASCII = [];
-let dataString = `!"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_\`abcdefghijklmnopqrstuvwxyz{|}~`;
+let dataString = ` !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_\`abcdefghijklmnopqrstuvwxyz{|}~`;
 let data = dataString.split("");
 for (type of data) {
   var item = {};
