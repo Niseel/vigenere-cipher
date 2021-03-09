@@ -1,0 +1,14 @@
+{
+  "name": "vigenere",
+  "version": "1.0.0",
+  "description": "- **Sau khi clone source về**\r - **Cài Nodejs và chạy trên cmd của thư mục clone để cài đặt các module cần thiết**",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "readline-sync": "^1.4.10"
+  }
+}
