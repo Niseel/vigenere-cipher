@@ -70,6 +70,7 @@ const encryptVigenereCipher = (str, key) => {
   }
 
   console.log(plaintextCode);
+  console.log(keystream);
   let result = "";
   arrResultCode.map((item) => {
     result += getChar(item);
@@ -113,7 +114,8 @@ const decryptVigenereCipher = (str, key) => {
     //console.log(curr);
     let test = "";
     test += getChar(curr).toString();
-    console.log(test);
+
+    arrResult.push(test);
     // let currChar = ciphertext[i].charCodeAt(0) - keystream[i].charCodeAt(0);
     // if (currChar < 32 || currChar > 126) {
     //   currChar = ciphertext[i].charCodeAt(0) * 2 - keystream[i].charCodeAt(0);
@@ -122,15 +124,60 @@ const decryptVigenereCipher = (str, key) => {
   }
   // console.log(ciphertext, ciphertext.length);
   // console.log(keystream, keystream.length);
+  var strResult = arrResult.join("");
+  return strResult;
 };
 const vigenereCipherDetector = (str) => {};
 
 // let str = readlineSync.question("> Enter string you want to encrypt? ");
 // let key = readlineSync.question("> Enter 'key string' you want to encrypt? ");
 
-console.log(
-  ">String after encrypt: ",
-  encryptVigenereCipher("Truong dai hoc Sai Gon (SGU)", "sguUGS")
-);
+// console.log(
+//   ">String after encrypt: ",
+//   encryptVigenereCipher("Truong dai hoc Sai Gon (SGU)", "sguUGS")
+// );
 
-console.log(decryptVigenereCipher(`hz,eV[4lw_g\\$k6II]4O&dg{gOk~`, "sguUGS"));
+// console.log(decryptVigenereCipher(`hz,eV[4lw_g\\$k6II]4O&dg{gOk~`, "sguUGS"));
+
+function showMenu() {
+  console.log("1> Encrypt string with Vigenere-Cipher");
+  console.log("2> Decrypt string with Vigenere-Cipher");
+  console.log("3> End Program");
+}
+function main() {
+  showMenu();
+  let choose = readlineSync.question("> Choose your option? ");
+  switch (parseInt(choose)) {
+    case 1:
+      let plaintext = readlineSync.question(
+        "> Enter plantext you want to encrypt? "
+      );
+      var key = readlineSync.question(
+        "> Enter 'k number' you want to encrypt? "
+      );
+      console.log("> Your Ciphertext: ", encryptVigenereCipher(plaintext, key));
+      console.log("\n \n");
+      console.log(
+        "============================================================="
+      );
+      main();
+      break;
+    case 2:
+      let ciphertext = readlineSync.question(
+        "> Enter ciphertext you want to decrypt? "
+      );
+      var key = readlineSync.question("> Enter 'k number' ");
+      console.log("> Your plaintext: ", decryptVigenereCipher(ciphertext, key));
+      console.log("\n \n");
+      console.log(
+        "============================================================="
+      );
+      main();
+      break;
+    case 3:
+      console.log("End Program");
+      break;
+  }
+}
+
+main();
